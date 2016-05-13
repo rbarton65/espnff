@@ -1,22 +1,10 @@
 import re
-# import argparse
+
 from lxml import html
 
 import requests
 
-'''
-parser = argparse.ArgumentParser()
-parser.add_argument('-l', '--league',
-                    help='ESPN league ID',
-                    required=True)
-parser.add_argument('-w','--week',
-                    help='power ranking for this week',
-                    required=True)
-parser.add_argument('-y','--year',
-                    help='power ranking for this year',
-                    required=True)
-args = parser.parse_args()
-'''
+import utils
 
 
 class League(object):
@@ -24,8 +12,10 @@ class League(object):
     def __init__(self, league_id, year):
         self.league_id = league_id
         self.year = year
+        self.members = []
+        self._fetch_members()
 
-    def fetch_members(self):
+    def _fetch_members(self):
         '''Fetch members in league'''
         url = 'http://games.espn.go.com/ffl/standings?leagueId=%s&seasonId=%s'
         page = requests.get(url % (self.league_id, self.year))
@@ -36,7 +26,16 @@ class League(object):
             # parse team id from href url
             keysearch = re.compile('teamId=(.*?)&')
             team_id = keysearch.search(member.attrib['href']).group(1)
-            yield(Members(team_name, team_id, self.league_id, self.year))
+            self.members.append(Members(team_name, team_id, self.league_id, self.year))
+
+    def get_week(self, week):
+        '''Get power rankings for specified week'''
+        wins_matrix = [x.calculate_wins(week) for x in self.members]
+        # calculate two step dominance
+        dominance_list = utils.two_step_dominance(wins_matrix)
+        # assign dominance number to each team
+        for dom, team in zip(dominance_list, self.members):
+            team.dominance = dom
 
 
 class Members(object):
@@ -52,11 +51,10 @@ class Members(object):
         self.previous_rank = 0
         self.power_points = 0
         self.scores = []
-        self.wins = [0]*32  # team_id numbers increase with new members, 32 to be safe
-        self.fetch_info()
-        self.calculate_wins()
+        self.dominance = 0
+        self._fetch_info()
 
-    def fetch_info(self):
+    def _fetch_info(self):
         '''Fetch the scores, opponents, and margin of victory for each week'''
         url = 'http://games.espn.go.com/ffl/schedule?leagueId=%s&teamId=%s&seasonId=%s'
         page = requests.get(url % (self.league_id, self.team_id, self.year))
@@ -78,26 +76,29 @@ class Members(object):
                 opp_score = float(score.text.split('-')[1])  # 'W 98-89' will return '85', need float for decimals
                 self.mov.append('{0:.2f}'.format(team_score - opp_score))
 
-    def calculate_wins(self):
+    def _power_points(self):
+        pass
+
+    def calculate_wins(self, week):
         '''Calculates wins based on negative or positive margin of victory'''
+        wins = [0]*32  # team_id numbers increase with new members, 32 to be safe
         # create tuple to determine outcome against opponents
         outcomes = list(zip(self.opponents, self.mov))
         # convert to ints and floats
         outcomes = [(int(x), float(y)) for (x, y) in outcomes]
 
-        for opp, mov in outcomes:
+        for opp, mov in outcomes[:week]:
             opp = opp-1  # team id 1 is 0th place in self.wins
             if mov > 0:
-                self.wins[opp] += 1
+                wins[opp] += 1
+        return wins
 
 
 def main():
     league = League(288077, 2015)
-    # create list from generator
-    members = list(league.fetch_members())
-    # create matrix of every members' wins
-    matrix = [x.wins for x in members]
-    print(matrix)
+    league.get_week(3)
+    for x in league.members:
+        print(x.name, x.dominance)
 
 
 if __name__ == '__main__':
