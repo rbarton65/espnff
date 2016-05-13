@@ -1,4 +1,6 @@
 import re
+import operator
+import json
 
 from lxml import html
 
@@ -28,14 +30,57 @@ class League(object):
             team_id = keysearch.search(member.attrib['href']).group(1)
             self.members.append(Members(team_name, team_id, self.league_id, self.year))
 
-    def get_week(self, week):
-        '''Get power rankings for specified week'''
+    def _previous_ranking(self, week):
+        '''Get last week's power rankings for specified week'''
+        week = week - 1
         wins_matrix = [x._calculate_wins(week) for x in self.members]
         # calculate two step dominance
         dominance_list = utils.two_step_dominance(wins_matrix)
-        # assign dominance number to each team
+
+        # assign dominance number to each team, calculate power points
         for dom, team in zip(dominance_list, self.members):
             team.dominance = dom
+            team._power_points(week)
+
+        # sort by power points
+        self.members.sort(key=operator.attrgetter('power_points'), reverse=True)
+
+        for rank, team in enumerate(self.members):
+            team.previous_rank = rank+1
+
+    def _current_ranking(self, week):
+        '''Get curent power rankings for specified week'''
+        wins_matrix = [x._calculate_wins(week) for x in self.members]
+        # calculate two step dominance
+        dominance_list = utils.two_step_dominance(wins_matrix)
+
+        # assign dominance number to each team, calculate power points
+        for dom, team in zip(dominance_list, self.members):
+            team.dominance = dom
+            team._power_points(week)
+
+        # sort by power points
+        self.members.sort(key=operator.attrgetter('power_points'), reverse=True)
+
+        for rank, team in enumerate(self.members):
+            team.current_rank = rank+1
+
+    def get_week(self, week):
+        if week > 1:
+            self._previous_ranking(week)
+            self._current_ranking(week)
+        else:
+            self._current_ranking(week)
+
+        # build json object
+        data = {x.name: {'current rank': x.current_rank,
+                         'losses': x.losses,
+                         'power points': x.power_points,
+                         'previous rank': x.previous_rank,
+                         'wins': x.wins} for x in self.members}
+        json_data = json.dumps(data, sort_keys=True,
+                               indent=4, separators=(',', ': '))
+        return json_data
 
 
 class Members(object):
@@ -46,11 +91,13 @@ class Members(object):
         self.league_id = league_id
         self.year = year
         self.current_rank = 0
+        self.losses = 0
         self.mov = []
         self.opponents = []
         self.previous_rank = 0
         self.power_points = 0
         self.scores = []
+        self.wins = 0
         self.dominance = 0
         self._fetch_info()
 
@@ -76,8 +123,18 @@ class Members(object):
                 opp_score = float(score.text.split('-')[1])  # 'W 98-89' will return '85', need float for decimals
                 self.mov.append('{0:.2f}'.format(team_score - opp_score))
 
-    def _power_points(self):
-        pass
+    def _power_points(self, week):
+        '''Calculate power points'''
+        # turn needed values into floats
+        self.scores = [float(x) for x in self.scores]
+        self.mov = [float(x) for x in self.mov]
+        self.dominance = float(self.dominance)
+        score_avg = float('{0:.2f}'.format(sum(self.scores[:week]) / week))
+        mov_avg = float('{0:.2f}'.format(sum(self.mov[:week]) / week))
+        # formula is weighted 80% dominance, 15% scores, 5% margin of victory
+        self.power_points = float('{0:.2f}'.format((self.dominance*0.8) +
+                                                   (score_avg*0.15) +
+                                                   (mov_avg*0.5)))
 
     def _calculate_wins(self, week):
         '''Calculates wins based on negative or positive margin of victory'''
@@ -91,14 +148,18 @@ class Members(object):
             opp = opp-1  # team id 1 is 0th place in self.wins
             if mov > 0:
                 wins[opp] += 1
+
+        # set losses and wins
+        self.losses = week - sum(wins)
+        self.wins = sum(wins)
+
         return wins
 
 
 def main():
     league = League(288077, 2015)
-    league.get_week(3)
-    for x in league.members:
-        print(x.name, x.dominance)
+    data = league.get_week(1)
+    print(data)
 
 
 if __name__ == '__main__':
