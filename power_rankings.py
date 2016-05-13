@@ -30,7 +30,7 @@ class League(object):
 
     def get_week(self, week):
         '''Get power rankings for specified week'''
-        wins_matrix = [x.calculate_wins(week) for x in self.members]
+        wins_matrix = [x._calculate_wins(week) for x in self.members]
         # calculate two step dominance
         dominance_list = utils.two_step_dominance(wins_matrix)
         # assign dominance number to each team
@@ -79,7 +79,7 @@ class Members(object):
     def _power_points(self):
         pass
 
-    def calculate_wins(self, week):
+    def _calculate_wins(self, week):
         '''Calculates wins based on negative or positive margin of victory'''
         wins = [0]*32  # team_id numbers increase with new members, 32 to be safe
         # create tuple to determine outcome against opponents
