@@ -68,9 +68,6 @@ class Members(object):
 def main():
     league = League(288077, 2015)
     members = [member for member in league.gather_members()]
-    print([x.mov for x in members])
     [x.get_info() for x in members]
-    for x in members:
-        print(x.mov)
 
 if __name__ == '__main__': main()
