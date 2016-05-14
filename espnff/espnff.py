@@ -1,7 +1,7 @@
 import re
 import operator
-import json
 
+import json
 from lxml import html
 
 import requests
@@ -31,7 +31,7 @@ class League(object):
             self.members.append(Members(team_name, team_id, self.league_id, self.year))
 
     def _previous_ranking(self, week):
-        '''Get last week's power rankings for specified week'''
+        '''Get last week power rankings for specified week'''
         week = week - 1
         wins_matrix = [x._calculate_wins(week) for x in self.members]
         # calculate two step dominance
@@ -155,7 +155,7 @@ class Members(object):
 
         return wins
 
-
+'''
 def main():
     league = League(288077, 2015)
     data = league.get_week(1)
@@ -164,3 +164,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+'''
