@@ -3,7 +3,11 @@ from setuptools import setup
 setup(
     name='espnff',
 
-    packages=['espnff'],
+    packages=['espnff', 'espnff.espnff'],
+
+    package_dir={'espnff': 'espnff'},
+
+    include_package_data=True,
 
     version='0.1.1',
 
