@@ -6,7 +6,7 @@ from lxml import html
 
 import requests
 
-import utils
+from .utils import two_step_dominance
 
 
 class League(object):
@@ -35,7 +35,7 @@ class League(object):
         week = week - 1
         wins_matrix = [x._calculate_wins(week) for x in self.members]
         # calculate two step dominance
-        dominance_list = utils.two_step_dominance(wins_matrix)
+        dominance_list = two_step_dominance(wins_matrix)
 
         # assign dominance number to each team, calculate power points
         for dom, team in zip(dominance_list, self.members):
@@ -52,7 +52,7 @@ class League(object):
         '''Get curent power rankings for specified week'''
         wins_matrix = [x._calculate_wins(week) for x in self.members]
         # calculate two step dominance
-        dominance_list = utils.two_step_dominance(wins_matrix)
+        dominance_list = two_step_dominance(wins_matrix)
 
         # assign dominance number to each team, calculate power points
         for dom, team in zip(dominance_list, self.members):
