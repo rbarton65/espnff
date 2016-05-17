@@ -66,6 +66,7 @@ class League(object):
             team.current_rank = rank+1
 
     def get_week(self, week):
+        '''Get power rankings for specified week'''
         if week > 1:
             self._previous_ranking(week)
             self._current_ranking(week)
@@ -73,11 +74,48 @@ class League(object):
             self._current_ranking(week)
 
         # build json object
-        data = {x.name: {'current rank': x.current_rank,
-                         'losses': x.losses,
-                         'power points': x.power_points,
-                         'previous rank': x.previous_rank,
-                         'wins': x.wins} for x in self.members}
+        data = {x.name: {
+                        'current rank': x.current_rank,
+                        'losses': x.losses,
+                        'power points': x.power_points,
+                        'previous rank': x.previous_rank,
+                        'wins': x.wins
+                        }
+                for x in self.members
+                }
+        json_data = json.dumps(data, sort_keys=True,
+                               indent=4, separators=(',', ': '))
+        return json_data
+
+    def get_member(self, id):
+        '''Get team information'''
+        # find team with matching team id
+        data = {int(x.team_id): {
+                            'name': x.name,
+                            'year': x.year,
+                            'scores': x.scores,
+                            'opponents': x.opponents,
+                            'wins': x.wins,
+                            'mov': x.mov
+                            }
+                for x in self.members if x.team_id == str(id)
+                }
+        json_data = json.dumps(data, sort_keys=True,
+                               indent=4, separators=(',', ': '))
+        return json_data
+
+    def get_all_members(self):
+        '''Get all member information'''
+        data = {int(x.team_id): {
+                            'name': x.name,
+                            'year': x.year,
+                            'scores': x.scores,
+                            'opponents': x.opponents,
+                            'wins': x.wins,
+                            'mov': x.mov
+                            }
+                for x in self.members
+                }
         json_data = json.dumps(data, sort_keys=True,
                                indent=4, separators=(',', ': '))
         return json_data
@@ -121,7 +159,10 @@ class Members(object):
             if 'pts' not in score.text:  # 'pts' appear on bye weeks
                 team_score = float(score.text[2:].split('-')[0])  # 'W 98-85' will return '98', need float for decimals
                 opp_score = float(score.text.split('-')[1])  # 'W 98-89' will return '85', need float for decimals
-                self.mov.append('{0:.2f}'.format(team_score - opp_score))
+                mov = team_score - opp_score
+                self.mov.append('{0:.2f}'.format(mov))
+                if mov > 0:
+                    self.wins += 1
 
     def _power_points(self, week):
         '''Calculate power points'''
@@ -154,14 +195,3 @@ class Members(object):
         self.wins = sum(wins)
 
         return wins
-
-'''
-def main():
-    league = League(288077, 2015)
-    data = league.get_week(1)
-    print(data)
-
-
-if __name__ == '__main__':
-    main()
-'''
