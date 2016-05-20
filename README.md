@@ -6,7 +6,7 @@ A simple API for ESPN fantasy football.
 Installation
 ------------
 
-With Pip:
+With Git:
 
 ```bash
 git clone https://github.com/rbarton65/espnff
