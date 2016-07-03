@@ -15,6 +15,11 @@ class League(object):
         self.league_id = league_id
         self.year = year
         self.members = []
+        self.basic_settings = {
+                               'League Name': None,
+                               'Number of Teams': None,
+                               'Scoring Type': None
+                               }
         self._fetch_members()
 
     def _fetch_members(self):
@@ -29,6 +34,12 @@ class League(object):
             keysearch = re.compile('teamId=(.*?)&')
             team_id = keysearch.search(member.attrib['href']).group(1)
             self.members.append(Members(team_name, team_id, self.league_id, self.year))
+
+    def _fetch_settings(self):
+        '''Fetch settings for league'''
+        url = 'http://games.espn.go.com/ffl/leaguesetup/settings?leagueId=%s&seasonId=%s'
+        page = requests.get(url % (self.league_id, self.year))
+        tree = html.fromstring(page.content)
 
     def _previous_ranking(self, week):
         '''Get last week power rankings for specified week'''
