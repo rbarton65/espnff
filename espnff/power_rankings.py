@@ -85,8 +85,8 @@ class League(object):
             self._current_ranking(week)
 
         # build json object
-        data = {x.name: {
-                        'current rank': x.current_rank,
+        data = {int(x.current_rank): {
+                        'name': x.name,
                         'losses': x.losses,
                         'power points': x.power_points,
                         'previous rank': x.previous_rank,
@@ -158,7 +158,10 @@ class Members(object):
 
         # Fetch scores for regular season (13 weeks)
         for score in tree.xpath('//table//tr[@bgcolor]//td//nobr//a')[:13]:
-            self.scores.append((score.text[2:].split('-')[0]))  # 'W 98-85' will return '98'
+            try:
+                self.scores.append(float(score.text[2:].split('-')[0]))  # 'W 98-85' will return '98'
+            except:
+                self.scores.append(float(0))
 
         # Fetch opponents for regular season
         for opp in tree.xpath('//table//tr[@bgcolor]//td[@nobr=""]//a')[:13]:
@@ -168,8 +171,12 @@ class Members(object):
         # Fetch margin of victory for regular season
         for score in tree.xpath('//table//tr[@bgcolor]//td//nobr//a')[:13]:
             if 'pts' not in score.text:  # 'pts' appear on bye weeks
-                team_score = float(score.text[2:].split('-')[0])  # 'W 98-85' will return '98', need float for decimals
-                opp_score = float(score.text.split('-')[1])  # 'W 98-89' will return '85', need float for decimals
+                try:
+                    team_score = float(score.text[2:].split('-')[0])  # 'W 98-85' will return '98', need float for decimals
+                    opp_score = float(score.text.split('-')[1])  # 'W 98-89' will return '85', need float for decimals
+                except:
+                    # Game hasn't happened yet
+                    team_score = opp_score = 0
                 mov = team_score - opp_score
                 self.mov.append('{0:.2f}'.format(mov))
                 if mov > 0:
