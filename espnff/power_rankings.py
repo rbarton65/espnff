@@ -85,7 +85,11 @@ class League(object):
             self._current_ranking(week)
 
         # build json object
+<<<<<<< HEAD
         data = {int(x.current_rank): {
+=======
+        data = {x.current_rank: {
+>>>>>>> 8e19dd7f190a109cdae21f0a1913c4da6b381542
                         'name': x.name,
                         'losses': x.losses,
                         'power points': x.power_points,
