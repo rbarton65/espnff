@@ -20,7 +20,7 @@ Usage
 This API returns information in JSON format on PUBLIC leagues. You can gather information on teams as well as calculate unbiased power rankings for any given week.
 
 ```python
-import espnff
+from espnff import League
 
 league_id = '''insert league id'''
 year = '''insert league year'''
