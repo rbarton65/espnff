@@ -193,7 +193,7 @@ class Members(object):
         # formula is weighted 80% dominance, 15% scores, 5% margin of victory
         self.power_points = float('{0:.2f}'.format((self.dominance*0.8) +
                                                    (score_avg*0.15) +
-                                                   (mov_avg*0.5)))
+                                                   (mov_avg*0.05)))
 
     def _calculate_wins(self, week):
         '''Calculates wins based on negative or positive margin of victory'''
