@@ -5,6 +5,11 @@ A simple API for ESPN fantasy football.
 
 Installation
 ------------
+With pip:
+```python
+pip3 install espnff
+```
+
 
 With Git:
 
