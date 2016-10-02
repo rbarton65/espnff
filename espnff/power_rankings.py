@@ -84,7 +84,7 @@ class League(object):
         else:
             self._current_ranking(week)
 
-        # build json object
+        # build dict object
         data = {int(x.current_rank): {
                         'name': x.name,
                         'losses': x.losses,
@@ -94,9 +94,7 @@ class League(object):
                         }
                 for x in self.members
                 }
-        json_data = json.dumps(data, sort_keys=True,
-                               indent=4, separators=(',', ': '))
-        return json_data
+        return data
 
     def get_member(self, id):
         '''Get team information'''
@@ -111,9 +109,7 @@ class League(object):
                             }
                 for x in self.members if x.team_id == str(id)
                 }
-        json_data = json.dumps(data, sort_keys=True,
-                               indent=4, separators=(',', ': '))
-        return json_data
+        return data
 
     def get_all_members(self):
         '''Get all member information'''
@@ -127,9 +123,7 @@ class League(object):
                             }
                 for x in self.members
                 }
-        json_data = json.dumps(data, sort_keys=True,
-                               indent=4, separators=(',', ': '))
-        return json_data
+        return data
 
 
 class Members(object):
