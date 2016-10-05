@@ -22,7 +22,12 @@ python3 setup.py install
 Usage
 -----
 
-This API returns information in JSON format on PUBLIC leagues. You can gather information on teams as well as calculate unbiased power rankings for any given week.
+This package interfaces with ESPN Fantasy Football to gather data from any public league.
+
+League class
+-----
+
+The League class has is created with a league ID and league year. League can return the members of any league instance.
 
 ```python
 from espnff import League
@@ -32,14 +37,26 @@ year = '''insert league year'''
 
 league = League(league_id, year)
 
-team_id = '''insert team id'''
+print(league.members)
+```
 
-# grab season information on team
-league.get_member(team_id)
+Member class
+-----
 
-# grab season information on all teams
-league.get_all_members()
+The Member class has the following attributes for each member of the league:
 
-# grab power rankings for any week
-league.get_week(week)
+```
+teamId # ID of team
+teamAbbrev # abbreviation of team
+teamName # name of team
+divisionID # ID of division
+divisionName # name of division
+wins # number of wins
+losses # number of losses
+pointsFor # total points scored by team
+pointsAgainst # total points scored against team
+owner # owner of team's name
+schedule # list of opponents for team
+scores # score of each week
+```
 ```
