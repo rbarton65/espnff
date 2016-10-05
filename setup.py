@@ -7,15 +7,15 @@ setup(
 
     include_package_data=True,
 
-    version='0.1.1',
+    version='0.1.5',
 
-    description='ESPN fantasy football power rankings algorithm',
+    description='ESPN fantasy football API',
 
     author='Rich Barton',
 
     author_email='rbart65@gmail.com',
 
-    install_requires=['lxml', 'requests', 'numpy'],
+    install_requires=['requests', 'numpy'],
 
     url='https://github.com/rbarton65/espnff',
 
