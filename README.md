@@ -27,7 +27,7 @@ This package interfaces with ESPN Fantasy Football to gather data from any publi
 League class
 -----
 
-The League class has is created with a league ID and league year. League can return the members of any league instance.
+The League class has is created with a league ID and league year. League can return the teams of any league instance, as well as power rankings.
 
 ```python
 from espnff import League
@@ -37,13 +37,18 @@ year = '''insert league year'''
 
 league = League(league_id, year)
 
-print(league.members)
+# print list of teams
+print(league.teams)
+
+# print power rankings for specific week
+week = '''insert week'''
+print(league.power_rankings(week=week))
 ```
 
-Member class
+Team class
 -----
 
-The Member class has the following attributes for each member of the league:
+The Team class has the following attributes for each team of the league:
 
 ```
 teamId # ID of team
@@ -58,5 +63,6 @@ pointsAgainst # total points scored against team
 owner # owner of team's name
 schedule # list of opponents for team
 scores # score of each week
+mov # margin of victory
 ```
 ```

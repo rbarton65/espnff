@@ -36,3 +36,17 @@ def two_step_dominance(X):
     matrix = add_matrix(square_matrix(X), X)
     result = [sum(x) for x in matrix]
     return result
+
+
+def power_points(dominance, teams, week):
+    '''Returns list of power points'''
+    power_points = []
+    for i,team in zip(dominance, teams):
+        avg_score = sum(team.scores[:week]) / week
+        avg_mov = sum(team.mov[:week]) / week
+
+        power = '{0:.2f}'.format((int(i)*0.8) + (int(avg_score)*0.15) + (int(avg_mov)*0.05))
+        power_points.append(power)
+
+    power_dict = {power: team for (power,team) in zip(power_points, teams)}
+    return power_dict

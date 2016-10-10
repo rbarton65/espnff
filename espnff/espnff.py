@@ -1,5 +1,7 @@
 import requests
 
+from .utils import two_step_dominance, power_points
+
 
 class League(object):
     '''Creates a League instance for Public ESPN league'''
@@ -7,41 +9,57 @@ class League(object):
         self.league_id = league_id
         self.year = year
         self.ENDPOINT = "http://games.espn.com/ffl/api/v2/"
-        self.members = []
-        self._fetch_members()
+        self.teams = []
+        self._fetch_teams()
 
-    def _fetch_members(self):
-        '''Fetch members in league'''
+    def __repr__(self):
+        return 'League %s, %s Season' % (self.league_id, self.year)
+
+    def _fetch_teams(self):
+        '''Fetch teams in league'''
         url = "%sleagueSettings?leagueId=%s&seasonId=%s"
         r = requests.get(url % (self.ENDPOINT, self.league_id, self.year))
         data = r.json()
         teams = data['leaguesettings']['teams']
 
         for team in teams:
-            self.members.append(Member(teams[team]))
+            self.teams.append(Team(teams[team]))
 
-        # replace opponentIds in schedule with member instances
-        for member in self.members:
-            for week, matchup in enumerate(member.schedule):
-                for opponent in self.members:
+        # replace opponentIds in schedule with team instances
+        for team in self.teams:
+            for week, matchup in enumerate(team.schedule):
+                for opponent in self.teams:
                     if matchup == opponent.teamId:
-                        member.schedule[week] = opponent
-        
+                        team.schedule[week] = opponent
+
          # calculate margin of victory
-        for member in self.members:
-            for week, opponent in enumerate(member.schedule):
-                mov = member.scores[week] - opponent.scores[week]
-                member.mov.append(mov)
-    
+        for team in self.teams:
+            for week, opponent in enumerate(team.schedule):
+                mov = team.scores[week] - opponent.scores[week]
+                team.mov.append(mov)
+
     def power_rankings(self, week):
         '''Return power rankings for any week'''
-        return
-       
-        
+
+        # calculate win for every week
+        win_matrix = []
+        teams_sorted = sorted(self.teams, key=lambda x: x.teamId, reverse=False)
+
+        for team in teams_sorted:
+            wins = [0]*32
+            for mov,opponent in zip(team.mov[:week], team.schedule[:week]):
+                opp = int(opponent.teamId)-1
+                if mov > 0:
+                    wins[opp]+=1
+            win_matrix.append(wins)
+
+        dominance_matrix = two_step_dominance(win_matrix)
+        power_rank = power_points(dominance_matrix, teams_sorted, week)
+        return sorted(power_rank.items(), key=lambda x: x[0], reverse=True)
 
 
-class Member(object):
-    '''Members are part of the league'''
+class Team(object):
+    '''Teams are part of the league'''
     def __init__(self, data):
         self.teamId = data['teamId']
         self.teamAbbrev = data['teamAbbrev']
@@ -58,6 +76,9 @@ class Member(object):
         self.mov = []
         self._fetch_schedule(data)
 
+    def __repr__(self):
+        return 'Team %s' % self.teamName
+
     def _fetch_schedule(self, data):
         '''Fetch schedule and scores for team'''
         matchups = data['scheduleItems']
@@ -73,14 +94,6 @@ class Member(object):
             else:
                 score = matchup['matchups'][0]['homeTeamScores'][0]
                 opponentId = matchup['matchups'][0]['homeTeamId']
-                
+
             self.scores.append(score)
             self.schedule.append(opponentId)
-
-league = League(288077, 2016)
-
-for team in league.members:
-    print(team.teamName)
-    print(team.scores)
-    print(team.mov)
-    print(team.wins)
