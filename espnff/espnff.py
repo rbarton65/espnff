@@ -26,6 +26,18 @@ class League(object):
                 for opponent in self.members:
                     if matchup == opponent.teamId:
                         member.schedule[week] = opponent
+        
+         # calculate margin of victory
+        for member in self.members:
+            for week, opponent in enumerate(member.schedule):
+                mov = member.scores[week] - opponent.scores[week]
+                member.mov.append(mov)
+    
+    def power_rankings(self, week):
+        '''Return power rankings for any week'''
+        return
+       
+        
 
 
 class Member(object):
@@ -43,6 +55,7 @@ class Member(object):
         self.owner = "%s %s" % (data['owners'][0]['firstName'], data['owners'][0]['lastName'])
         self.schedule = []
         self.scores = []
+        self.mov = []
         self._fetch_schedule(data)
 
     def _fetch_schedule(self, data):
@@ -63,3 +76,11 @@ class Member(object):
                 
             self.scores.append(score)
             self.schedule.append(opponentId)
+
+league = League(288077, 2016)
+
+for team in league.members:
+    print(team.teamName)
+    print(team.scores)
+    print(team.mov)
+    print(team.wins)
