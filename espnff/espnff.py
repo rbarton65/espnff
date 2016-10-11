@@ -52,11 +52,9 @@ class League(object):
                 if mov > 0:
                     wins[opp]+=1
             win_matrix.append(wins)
-
         dominance_matrix = two_step_dominance(win_matrix)
         power_rank = power_points(dominance_matrix, teams_sorted, week)
-        return sorted(power_rank.items(), key=lambda x: x[0], reverse=True)
-
+        return power_rank
 
 class Team(object):
     '''Teams are part of the league'''
