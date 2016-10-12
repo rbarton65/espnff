@@ -47,5 +47,5 @@ def power_points(dominance, teams, week):
 
         power = '{0:.2f}'.format((int(i)*0.8) + (int(avg_score)*0.15) + (int(avg_mov)*0.05))
         power_points.append(power)
-    power_dict = [(i, j) for (i,j) in zip(power_points, teams)]
-    return power_dict
+    power_tup = [(i, j) for (i,j) in zip(power_points, teams)]
+    return sorted(power_tup, key=lambda tup: float(tup[0]), reverse=True)
