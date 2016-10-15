@@ -17,6 +17,10 @@ setup(
 
     install_requires=['requests', 'numpy'],
 
+    test_suite='nose.collector',
+
+    tests_require=['nose'],
+
     url='https://github.com/rbarton65/espnff',
 
     classifiers=[

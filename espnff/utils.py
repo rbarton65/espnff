@@ -15,7 +15,7 @@ def square_matrix(X):
             for k in range(len(X)):
                 result[i][j] += X[i][k] * X[k][j]
 
-    return result
+    return result.tolist()
 
 
 def add_matrix(X, Y):
@@ -28,7 +28,7 @@ def add_matrix(X, Y):
         for j in range(len(X[0])):
             result[i][j] = X[i][j] + Y[i][j]
 
-    return result
+    return result.tolist()
 
 
 def two_step_dominance(X):
