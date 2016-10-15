@@ -1,13 +1,15 @@
 import unittest
 
+
 from espnff.utils import (
     square_matrix,
     add_matrix,
     two_step_dominance)
 
+
 class UtilsTestCase(unittest.TestCase):
     '''Tests for utils'''
-    
+
     def test_square_matrix(self):
         '''Is the logic for square_matrix successful?'''
 
@@ -27,7 +29,6 @@ class UtilsTestCase(unittest.TestCase):
         matrix = [[1, 0], [0, 1]]
         matrix_answer = [2, 2]
         self.assertEqual(two_step_dominance(matrix), matrix_answer)
-
 
 
 if __name__ == '__main__':

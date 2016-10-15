@@ -32,7 +32,7 @@ class League(object):
                     if matchup == opponent.teamId:
                         team.schedule[week] = opponent
 
-         # calculate margin of victory
+        # calculate margin of victory
         for team in self.teams:
             for week, opponent in enumerate(team.schedule):
                 mov = team.scores[week] - opponent.scores[week]
@@ -46,18 +46,20 @@ class League(object):
 
         # calculate win for every week
         win_matrix = []
-        teams_sorted = sorted(self.teams, key=lambda x: x.teamId, reverse=False)
+        teams_sorted = sorted(self.teams, key=lambda x: x.teamId,
+                              reverse=False)
 
         for team in teams_sorted:
             wins = [0]*32
-            for mov,opponent in zip(team.mov[:week], team.schedule[:week]):
+            for mov, opponent in zip(team.mov[:week], team.schedule[:week]):
                 opp = int(opponent.teamId)-1
                 if mov > 0:
-                    wins[opp]+=1
+                    wins[opp] += 1
             win_matrix.append(wins)
         dominance_matrix = two_step_dominance(win_matrix)
         power_rank = power_points(dominance_matrix, teams_sorted, week)
         return power_rank
+
 
 class Team(object):
     '''Teams are part of the league'''
@@ -71,7 +73,8 @@ class Team(object):
         self.losses = data['record']['overallLosses']
         self.pointsFor = data['record']['pointsFor']
         self.pointsAgainst = data['record']['pointsAgainst']
-        self.owner = "%s %s" % (data['owners'][0]['firstName'], data['owners'][0]['lastName'])
+        self.owner = "%s %s" % (data['owners'][0]['firstName'],
+                                data['owners'][0]['lastName'])
         self.schedule = []
         self.scores = []
         self.mov = []
@@ -85,7 +88,7 @@ class Team(object):
         matchups = data['scheduleItems']
 
         for matchup in matchups:
-            if matchup['matchups'][0]['isBye'] == False:
+            if matchup['matchups'][0]['isBye'] is False:
                 if matchup['matchups'][0]['awayTeamId'] == self.teamId:
                     score = matchup['matchups'][0]['awayTeamScores'][0]
                     opponentId = matchup['matchups'][0]['homeTeamId']
