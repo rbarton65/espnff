@@ -38,6 +38,9 @@ class League(object):
                 mov = team.scores[week] - opponent.scores[week]
                 team.mov.append(mov)
 
+        # sort by team ID
+        self.teams = sorted(self.teams, key=lambda x: x.teamId, reverse=False)
+
     def power_rankings(self, week):
         '''Return power rankings for any week'''
 
