@@ -65,4 +65,3 @@ schedule # list of opponents for team
 scores # score of each week
 mov # margin of victory
 ```
-```
