@@ -1,4 +1,5 @@
 import requests
+import warnings
 
 from .utils import two_step_dominance, power_points
 
@@ -29,7 +30,7 @@ class League(object):
         for team in self.teams:
             for week, matchup in enumerate(team.schedule):
                 for opponent in self.teams:
-                    if matchup == opponent.teamId:
+                    if matchup == opponent.team_id:
                         team.schedule[week] = opponent
 
         # calculate margin of victory
@@ -39,20 +40,20 @@ class League(object):
                 team.mov.append(mov)
 
         # sort by team ID
-        self.teams = sorted(self.teams, key=lambda x: x.teamId, reverse=False)
+        self.teams = sorted(self.teams, key=lambda x: x.team_id, reverse=False)
 
     def power_rankings(self, week):
         '''Return power rankings for any week'''
 
         # calculate win for every week
         win_matrix = []
-        teams_sorted = sorted(self.teams, key=lambda x: x.teamId,
+        teams_sorted = sorted(self.teams, key=lambda x: x.team_id,
                               reverse=False)
 
         for team in teams_sorted:
             wins = [0]*32
             for mov, opponent in zip(team.mov[:week], team.schedule[:week]):
-                opp = int(opponent.teamId)-1
+                opp = int(opponent.team_id)-1
                 if mov > 0:
                     wins[opp] += 1
             win_matrix.append(wins)
@@ -61,10 +62,25 @@ class League(object):
         return power_rank
 
 
+def deprecated_property(new_name):
+    def getter(self):
+        warnings.warn('Getting value of %s' % new_name, DeprecationWarning)
+        return getattr(self, new_name)
+
+    def setter(self, value):
+        warnings.warn('Setting value of %s' % new_name, DeprecationWarning)
+        setattr(self, new_name, value)
+
+    prop = property(getter)
+    prop.setter(setter)
+    return prop
+
+
 class Team(object):
+    foo=4
     '''Teams are part of the league'''
     def __init__(self, data):
-        self.teamId = data['teamId']
+        self.team_id = data['teamId']
         self.teamAbbrev = data['teamAbbrev']
         self.teamName = "%s %s" % (data['teamLocation'], data['teamNickname'])
         self.divisionId = data['division']['divisionId']
@@ -83,13 +99,16 @@ class Team(object):
     def __repr__(self):
         return 'Team %s' % self.teamName
 
+
+    teamId = deprecated_property('team_id')
+
     def _fetch_schedule(self, data):
         '''Fetch schedule and scores for team'''
         matchups = data['scheduleItems']
 
         for matchup in matchups:
             if matchup['matchups'][0]['isBye'] is False:
-                if matchup['matchups'][0]['awayTeamId'] == self.teamId:
+                if matchup['matchups'][0]['awayTeamId'] == self.team_id:
                     score = matchup['matchups'][0]['awayTeamScores'][0]
                     opponentId = matchup['matchups'][0]['homeTeamId']
                 else:
