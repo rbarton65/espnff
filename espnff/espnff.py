@@ -1,7 +1,6 @@
 import requests
-import warnings
 
-from .utils import two_step_dominance, power_points
+from .utils import two_step_dominance, power_points, deprecated_property
 
 
 class League(object):
@@ -62,33 +61,18 @@ class League(object):
         return power_rank
 
 
-def deprecated_property(new_name):
-    def getter(self):
-        warnings.warn('Getting value of %s' % new_name, DeprecationWarning)
-        return getattr(self, new_name)
-
-    def setter(self, value):
-        warnings.warn('Setting value of %s' % new_name, DeprecationWarning)
-        setattr(self, new_name, value)
-
-    prop = property(getter)
-    prop.setter(setter)
-    return prop
-
-
 class Team(object):
-    foo=4
     '''Teams are part of the league'''
     def __init__(self, data):
         self.team_id = data['teamId']
-        self.teamAbbrev = data['teamAbbrev']
-        self.teamName = "%s %s" % (data['teamLocation'], data['teamNickname'])
-        self.divisionId = data['division']['divisionId']
-        self.divisionName = data['division']['divisionName']
+        self.team_abbrev = data['teamAbbrev']
+        self.team_name = "%s %s" % (data['teamLocation'], data['teamNickname'])
+        self.division_id = data['division']['divisionId']
+        self.division_name = data['division']['divisionName']
         self.wins = data['record']['overallWins']
         self.losses = data['record']['overallLosses']
-        self.pointsFor = data['record']['pointsFor']
-        self.pointsAgainst = data['record']['pointsAgainst']
+        self.points_for = data['record']['pointsFor']
+        self.points_against = data['record']['pointsAgainst']
         self.owner = "%s %s" % (data['owners'][0]['firstName'],
                                 data['owners'][0]['lastName'])
         self.schedule = []
@@ -99,8 +83,13 @@ class Team(object):
     def __repr__(self):
         return 'Team %s' % self.teamName
 
-
-    teamId = deprecated_property('team_id')
+    teamId = deprecated_property('teamId', 'team_id')
+    teamAbbrev = deprecated_property('teamAbbrev', 'team_abbrev')
+    teamName = deprecated_property('teamName', 'team_name')
+    divisionId = deprecated_property('divisionId', 'division_id')
+    divisionName = deprecated_property('divisionName', 'division_name')
+    pointsFor = deprecated_property('pointsFor', 'points_for')
+    pointsAgainst = deprecated_property('pointsAgainst', 'points_against')
 
     def _fetch_schedule(self, data):
         '''Fetch schedule and scores for team'''
