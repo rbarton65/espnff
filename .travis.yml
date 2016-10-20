@@ -4,3 +4,8 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+
+install:
+  - pip3 install -r requirements.txt
+
+script: nosetests
