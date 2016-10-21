@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rbarton65/espnff.svg?branch=master)](https://travis-ci.org/rbarton65/espnff)
+
 ESPN Fantasy Football API
 ==============
 
