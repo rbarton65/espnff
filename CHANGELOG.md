@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file.
 - Fix issue where not all teams showed in power rankings.
 - Fix issue where power rankings output was not sorted.
 
-## [1.0.0] - 2016-4-10
+## [1.0.0] - 2016-10-04
 ### Added
 - New attributes for Teams.
 - Started using Semantic Versioning.
@@ -67,3 +67,4 @@ a string character instead of an integer.
 
 [Unreleased]: https://github.com/rbarton65/espnff/compare/v1.0.0...HEAD
 [1.0.1]: https://github.com/rbarton65/espnff/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/rbarton65/espnff/releases/tag/v1.0.0
