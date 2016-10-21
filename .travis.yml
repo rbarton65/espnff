@@ -5,6 +5,9 @@ python:
   - "3.5"
 
 install:
-  - pip3 install -r requirements.txt
+  - python3 setup.py install
+  - pip3 install flake8
 
-script: nosetests
+script: 
+  - python3 setup.py test
+  - flake8 .

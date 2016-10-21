@@ -4,11 +4,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - `.travis.yml` file for CI testing.
-- `requirements.txt`
+- `setup.cfg` file for `flake8` testing.
 
 ### Changed
 - README.md shows build status from Travis CI.
 - Better documentation in README.md
+- Added range for dependencies
+- `from espnff import *` now only imports `League`
 
 
 ## [1.0.1] - 2016-10-18

@@ -11,14 +11,6 @@ without webscraping for data manipulation projects.
 These instructions will get you a copy of the project up and running 
 on your local machine for development and testing purposes.
 
-### Prerequisites
-You will need the following to install this library:
-
-```
-requests
-numpy
-```
-
 ### Installing
 With pip:
 
