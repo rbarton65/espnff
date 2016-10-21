@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rbarton65/espnff.svg?branch=master)](https://travis-ci.org/rbarton65/espnff) [![version](https://img.shields.io/badge/version-1.0.1-blue.svg)][CHANGELOG]
+[![Build Status](https://travis-ci.org/rbarton65/espnff.svg?branch=master)](https://travis-ci.org/rbarton65/espnff) [![version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://github.com/rbarton65/espnff/blob/master/CHANGELOG.md)
 
 # ESPN Fantasy Football API
 
@@ -38,7 +38,6 @@ python3 setup.py install
 
 
 ## Basic Usage
------
 
 This gives an overview of all the features of `espnff`
 
