@@ -37,21 +37,21 @@ All notable changes to this project will be documented in this file.
 - `get_member`
 - `get_all_members`
 
-## [0.2.2] - 2016-09-27
+## 0.2.2 - 2016-09-27
 ### Fixed
 - Fix issue where margin of victory calculation in the power rankings
 algorithm accounted for 50% of the total power points. Should have been 5%.
 
-## [0.2.1] - 2016-09-15
+## 0.2.1 - 2016-09-15
 ### Fixed
 - Fix issue where scores from games that weren't played would become
 a string character instead of an integer.
 
-## [0.2.0] - 2016-07-03
+## 0.2.0 - 2016-07-03
 ### Changed
 - Rearranged output for `get_week`.
 
-## [0.1.0] - 2016-05-13
+## 0.1.0 - 2016-05-13
 ### Added
 - Power rankings function `get_week` to `League` class.
 - README information.
