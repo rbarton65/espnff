@@ -1,3 +1,3 @@
-from .espnff import League
+from .espnff import League, Team
 
-__version__ = '1.0.0'
+__all__ = ['League', 'Team']

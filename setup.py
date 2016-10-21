@@ -15,7 +15,7 @@ setup(
 
     author_email='rbart65@gmail.com',
 
-    install_requires=['requests', 'numpy'],
+    install_requires=['requests>=2.0.0,<3.0.0', 'numpy>=1.0.0,<2.0.0'],
 
     test_suite='nose.collector',
 
