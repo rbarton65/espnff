@@ -39,7 +39,7 @@ This gives an overview of all the features of `espnff`
 >>> from espnff import League
 >>> league_id = 123456
 >>> year = 2016
->>> league = League(league_id, 2016)
+>>> league = League(league_id, year)
 >>> league
 League 123456, 2016 Season
 ```
@@ -50,7 +50,7 @@ League 123456, 2016 Season
 >>> from espnff import League
 >>> league_id = 123456
 >>> year = 2016
->>> league = League(league_id, 2016)
+>>> league = League(league_id, year)
 >>> league.teams
 [Team 1, Team 2, Team 3, Team 4, Team 5, Team 6, Team 7, Team 8]
 >>> team1 = league.teams[0]
@@ -98,7 +98,7 @@ Division 1
 >>> from espnff import League
 >>> league_id = 123456
 >>> year = 2016
->>> league = League(league_id, 2016)
+>>> league = League(league_id, year)
 >>> league.power_rankings(week=5)
 [('31.85', Team 1), ('25.60', Team 3), ('25.60', Team 6), ('22.45', Team 2), 
 ('20.70', Team 8), ('18.20', Team 7), ('18.20', Team 4), ('18.10', Team 5)]
