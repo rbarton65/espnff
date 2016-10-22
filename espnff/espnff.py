@@ -17,8 +17,11 @@ class League(object):
 
     def _fetch_teams(self):
         '''Fetch teams in league'''
-        url = "%sleagueSettings?leagueId=%s&seasonId=%s"
-        r = requests.get(url % (self.ENDPOINT, self.league_id, self.year))
+        params = {
+            'leagueId': self.league_id,
+            'seasonId': self.year
+        }
+        r = requests.get('%sleagueSettings' % (self.ENDPOINT, ), params=params)
         data = r.json()
         teams = data['leaguesettings']['teams']
 
