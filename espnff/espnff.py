@@ -99,7 +99,7 @@ class Team(object):
         matchups = data['scheduleItems']
 
         for matchup in matchups:
-            if matchup['matchups'][0]['isBye'] is False:
+            if not matchup['matchups'][0]['isBye']:
                 if matchup['matchups'][0]['awayTeamId'] == self.team_id:
                     score = matchup['matchups'][0]['awayTeamScores'][0]
                     opponentId = matchup['matchups'][0]['homeTeamId']
