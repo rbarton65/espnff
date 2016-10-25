@@ -1,10 +1,10 @@
-import requests
+# import requests
 import unittest
 import json
 from unittest import mock
 
 
-from espnff.espnff import League, Team
+from espnff.espnff import League
 
 
 def mocked_requests_get(*args, **kwargs):
@@ -19,8 +19,8 @@ def mocked_requests_get(*args, **kwargs):
     public_test = "http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=1234&seasonId=2016"
     private_test = "http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=4321&seasonId=2016"
     public_json = json.loads(open('test_league.json').read())
-    private_error = {"error":[{"message":"No permission to view this league","code":"functional"}]}
-    invalid_error = {"error":[{"message":"Unable to retrieve league (2016:9000000)","code":"functional"}]}
+    private_error = {"error": [{"message": "No permission to view this league", "code": "functional"}]}
+    invalid_error = {"error": [{"message": "Unable to retrieve league (2016:9000000)", "code": "functional"}]}
     params = kwargs['params']
 
     if "%s?leagueId=%s&seasonId=%s" % (args[0], params['leagueId'], params['seasonId']) == public_test:
@@ -41,16 +41,16 @@ class LeagueTestCase(unittest.TestCase):
         self.assertEqual(league.json, {'league': 'public'})
         self.assertEqual(league.status, 200)
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)   
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_private_league(self, mock_get):
         league = League(4321, 2016)
- #       self.assertEqual(league.json, {'league': 'private'})
+#        self.assertEqual(league.json, {'league': 'private'})
         self.assertEqual(league.status, 401)
 
-    @mock.patch('requests.get', side_effect=mocked_requests_get)   
+    @mock.patch('requests.get', side_effect=mocked_requests_get)
     def test_invalid_league(self, mock_get):
         league = League(9000000, 2016)
-#        self.assertEqual(league.json, {'league': 'invalid'})
+#       self.assertEqual(league.json, {'league': 'invalid'})
         self.assertEqual(league.status, 404)
 
 if __name__ == '__main__':
