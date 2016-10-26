@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - `.travis.yml` file for CI testing.
 - `setup.cfg` file for `flake8` testing.
+- Http requests mock for testing
 
 ### Changed
 - README.md shows build status from Travis CI.
