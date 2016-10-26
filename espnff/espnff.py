@@ -22,6 +22,7 @@ class League(object):
             'seasonId': self.year
         }
         r = requests.get('%sleagueSettings' % (self.ENDPOINT, ), params=params)
+        self.status = r.status_code
         data = r.json()
         teams = data['leaguesettings']['teams']
 
