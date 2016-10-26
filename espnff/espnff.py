@@ -85,7 +85,7 @@ class Team(object):
         self._fetch_schedule(data)
 
     def __repr__(self):
-        return 'Team %s' % self.teamName
+        return 'Team %s' % self.team_name
 
     teamId = deprecated_property('teamId', 'team_id')
     teamAbbrev = deprecated_property('teamAbbrev', 'team_abbrev')
