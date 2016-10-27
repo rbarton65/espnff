@@ -5,12 +5,18 @@ All notable changes to this project will be documented in this file.
 ### Added
 - `.travis.yml` file for CI testing.
 - `setup.cfg` file for `flake8` testing.
+- Http requests mock for testing.
+- `league.status_code` for testing purposes.
+- Exceptions for status codes.
+- Tests for future development.
 
 ### Changed
+- Deprecation warnings for `Team` class attributes. Next Version
+will remove old attributes.
 - README.md shows build status from Travis CI.
-- Better documentation in README.md
-- Added range for dependencies
-- `from espnff import *` now only imports `League`
+- Better documentation in README.md.
+- Added range for dependencies.
+- `from espnff import *` now only imports `League` and `Team`.
 
 
 ## [1.0.1] - 2016-10-18

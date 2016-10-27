@@ -19,7 +19,7 @@ setup(
 
     test_suite='nose.collector',
 
-    tests_require=['nose'],
+    tests_require=['nose', 'requests_mock'],
 
     url='https://github.com/rbarton65/espnff',
 
