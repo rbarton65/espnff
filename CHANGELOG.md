@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+
+## [1.1.0] - 2016-10-18
 ### Added
 - `.travis.yml` file for CI testing.
 - `setup.cfg` file for `flake8` testing.
@@ -73,6 +76,7 @@ a string character instead of an integer.
 - League and Members classes to obtain information about ESPN league.
 
 
-[Unreleased]: https://github.com/rbarton65/espnff/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/rbarton65/espnff/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/rbarton65/espnff/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/rbarton65/espnff/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/rbarton65/espnff/releases/tag/v1.0.0
