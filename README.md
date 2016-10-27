@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rbarton65/espnff.svg?branch=master)](https://travis-ci.org/rbarton65/espnff) [![version](https://img.shields.io/badge/version-1.0.1-blue.svg)](https://github.com/rbarton65/espnff/blob/master/CHANGELOG.md) [![PyPI version](https://badge.fury.io/py/espnff.svg)](https://badge.fury.io/py/espnff)
+[![Build Status](https://travis-ci.org/rbarton65/espnff.svg?branch=master)](https://travis-ci.org/rbarton65/espnff) [![version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/rbarton65/espnff/blob/master/CHANGELOG.md) [![PyPI version](https://badge.fury.io/py/espnff.svg)](https://badge.fury.io/py/espnff)
 
 # ESPN Fantasy Football API
 
@@ -87,9 +87,9 @@ Division 1
 >>> team1.schedule
 [Team 2, Team 3, Team 4, Team 5, Team 6, Team 7, Team 8, Team 2, Team 3, Team 4, Team 5, Team 6, Team 7, Team 8]
 >>> team1.scores
-[135.5, 126.38, 129.53, 126.65, 114.81, 101.82, 1.15, 0, 0, 0, 0, 0, 0]
+[135.5, 126.38, 129.53, 126.65, 114.81, 101.82, 1.15, 0, 0, 0, 0, 0, 0, 0]
 >>> team1.mov
-[32.12, 24.92, 45.97, 34.17, 41.74, -5.39, 1.15, 0, 0, 0, 0, 0, 0]
+[32.12, 24.92, 45.97, 34.17, 41.74, -5.39, 1.15, 0, 0, 0, 0, 0, 0, 0]
 ```
 
 ### Viewing power rankings
