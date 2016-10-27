@@ -3,6 +3,22 @@ import requests
 from .utils import two_step_dominance, power_points, deprecated_property
 
 
+class ESPNFFException(Exception):
+    pass
+
+
+class PrivateLeagueException(ESPNFFException):
+    pass
+
+
+class InvalidLeagueException(ESPNFFException):
+    pass
+
+
+class UnknownLeagueException(ESPNFFException):
+    pass
+
+
 class League(object):
     '''Creates a League instance for Public ESPN league'''
     def __init__(self, league_id, year):
@@ -10,13 +26,12 @@ class League(object):
         self.year = year
         self.ENDPOINT = "http://games.espn.com/ffl/api/v2/"
         self.teams = []
-        self._fetch_teams()
+        self._fetch_league()
 
     def __repr__(self):
         return 'League %s, %s Season' % (self.league_id, self.year)
 
-    def _fetch_teams(self):
-        '''Fetch teams in league'''
+    def _fetch_league(self):
         params = {
             'leagueId': self.league_id,
             'seasonId': self.year
@@ -24,6 +39,20 @@ class League(object):
         r = requests.get('%sleagueSettings' % (self.ENDPOINT, ), params=params)
         self.status = r.status_code
         data = r.json()
+
+        if self.status == 401:
+            raise PrivateLeagueException(data['error'][0]['message'])
+
+        elif self.status == 404:
+            raise InvalidLeagueException(data['error'][0]['message'])
+
+        elif self.status != 200:
+            raise UnknownLeagueException('Unknown %s Error' % self.status)
+
+        self._fetch_teams(data)
+
+    def _fetch_teams(self, data):
+        '''Fetch teams in league'''
         teams = data['leaguesettings']['teams']
 
         for team in teams:
