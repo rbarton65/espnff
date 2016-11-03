@@ -44,5 +44,44 @@ class LeagueTestCase(unittest.TestCase):
         with self.assertRaises(UnknownLeagueException):
             League(1234, 2016)
 
+    @requests_mock.Mocker()
+    def test_team_length(self, m):
+        '''Did all the teams load into the class?'''
+        data = json.loads(open('espnff/tests/test_league.json').read())
+        m.get('http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=1234&seasonId=2016', status_code=200, json=data)
+        league = League(1234, 2016)
+        self.assertEqual(len(league.teams), 12)
+
+    @requests_mock.Mocker()
+    def test_team_scores(self, m):
+        '''Do the sum of the scores attributes equal the points for?'''
+        data = json.loads(open('espnff/tests/test_league.json').read())
+        m.get('http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=1234&seasonId=2016', status_code=200, json=data)
+        league = League(1234, 2016)
+        for team in league.teams:
+            print(team.scores)
+            self.assertAlmostEqual(sum(team.scores[:13]), team.points_for)
+
+    @requests_mock.Mocker()
+    def test_power_rankings(self, m):
+        '''Does the power rankings algorithm have the expected output?'''
+        data = json.loads(open('espnff/tests/test_league.json').read())
+        m.get('http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=1234&seasonId=2016', status_code=200, json=data)
+        expected = ['22.45', '18.85', '17.80', '17.65', '17.00', '16.45',
+                    '15.15', '14.80', '13.75', '13.00', '11.55', '8.45']
+        league = League(1234, 2016)
+        for points, num in zip(league.power_rankings(1), expected):
+            self.assertEqual(points[0], num)
+
+    @requests_mock.Mocker()
+    def test_power_rankings_length(self, m):
+        '''Does the power rankings algorithm output include all teams?'''
+        data = json.loads(open('espnff/tests/test_league.json').read())
+        m.get('http://games.espn.com/ffl/api/v2/leagueSettings?leagueId=1234&seasonId=2016', status_code=200, json=data)
+        league = League(1234, 2016)
+        for num in range(1, 13):
+            self.assertEqual(len(league.power_rankings(num)), 12)
+
+
 if __name__ == '__main__':
     unittest.main()
