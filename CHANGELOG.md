@@ -3,11 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 ### Added
-- Added scoreboard function to League instance
-- Added tests for scoreboard function
+- Added scoreboard function to League instance.
+- Added tests for scoreboard function.
 
 ### Removed
-- Removed deprecation warnings, fully converted to new attributes
+- Removed deprecation warnings, fully converted to new attributes.
+- Removed need for `numpy` package.
 
 
 ## [1.1.0] - 2016-10-18
