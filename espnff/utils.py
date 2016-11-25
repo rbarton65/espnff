@@ -1,5 +1,4 @@
 import numpy
-import warnings
 
 
 def square_matrix(X):
@@ -51,19 +50,3 @@ def power_points(dominance, teams, week):
         power_points.append(power)
     power_tup = [(i, j) for (i, j) in zip(power_points, teams)]
     return sorted(power_tup, key=lambda tup: float(tup[0]), reverse=True)
-
-
-def deprecated_property(old_name, new_name):
-    def getter(self):
-        warnings.warn('%s will be removed in future versions, please use %s instead.'
-                      % (old_name, new_name), stacklevel=2)
-        return getattr(self, new_name)
-
-    def setter(self, value):
-        warnings.warn('%s will be removed in future versions, please use %s instead.'
-                      % (old_name, new_name), stacklevel=2)
-        setattr(self, new_name, value)
-
-    prop = property(getter)
-    prop.setter(setter)
-    return prop
