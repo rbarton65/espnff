@@ -1,12 +1,13 @@
 def square_matrix(X):
     '''Squares a matrix'''
-    result = [[0.0]*len(X) for x in range(len(X))]
+    result = [[0.0 for x in range(len(X))] for y in range(len(X))]
+    print(X)
 
     # iterate through rows of X
     for i in range(len(X)):
 
         # iterate through columns of X
-        for j in range(len(X[0])):
+        for j in range(len(X)):
 
             # iterate through rows of X
             for k in range(len(X)):
@@ -17,7 +18,7 @@ def square_matrix(X):
 
 def add_matrix(X, Y):
     '''Adds two matrices'''
-    result = [[0.0]*len(X) for x in range(len(X))]
+    result = [[0.0 for x in range(len(X))] for y in range(len(X))]
 
     for i in range(len(X)):
 
