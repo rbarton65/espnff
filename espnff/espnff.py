@@ -1,6 +1,7 @@
 import requests
 
-from .utils import two_step_dominance, power_points, deprecated_property
+from .utils import (two_step_dominance,
+                    power_points, )
 
 
 class ESPNFFException(Exception):
@@ -29,7 +30,7 @@ class League(object):
         self._fetch_league()
 
     def __repr__(self):
-        return 'League %s, %s Season' % (self.league_id, self.year)
+        return 'League(%s, %s)' % (self.league_id, self.year)
 
     def _fetch_league(self):
         params = {
@@ -114,15 +115,7 @@ class Team(object):
         self._fetch_schedule(data)
 
     def __repr__(self):
-        return 'Team %s' % self.team_name
-
-    teamId = deprecated_property('teamId', 'team_id')
-    teamAbbrev = deprecated_property('teamAbbrev', 'team_abbrev')
-    teamName = deprecated_property('teamName', 'team_name')
-    divisionId = deprecated_property('divisionId', 'division_id')
-    divisionName = deprecated_property('divisionName', 'division_name')
-    pointsFor = deprecated_property('pointsFor', 'points_for')
-    pointsAgainst = deprecated_property('pointsAgainst', 'points_against')
+        return 'Team(%s)' % self.team_names
 
     def _fetch_schedule(self, data):
         '''Fetch schedule and scores for team'''
