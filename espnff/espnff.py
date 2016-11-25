@@ -126,6 +126,8 @@ class League(object):
                 if matchup.away_team == team.team_id:
                     matchup.away_team = team
 
+        return result
+
 
 class Team(object):
     '''Teams are part of the league'''
@@ -147,7 +149,7 @@ class Team(object):
         self._fetch_schedule(data)
 
     def __repr__(self):
-        return 'Team(%s)' % (self.team_names, )
+        return 'Team(%s)' % (self.team_name, )
 
     def _fetch_schedule(self, data):
         '''Fetch schedule and scores for team'''
