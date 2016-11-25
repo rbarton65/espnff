@@ -81,7 +81,7 @@ class LeagueTestCase(unittest.TestCase):
         league = League(1234, 2016)
         for num in range(1, 13):
             self.assertEqual(len(league.power_rankings(num)), 12)
-=======
+
 
 class ScoreboardTestCase(unittest.TestCase):
     '''Test Scoreboard funtion'''
@@ -161,7 +161,6 @@ class ScoreboardTestCase(unittest.TestCase):
         scoreboard = league.scoreboard()
         scoreboard = [str(x) for x in scoreboard]
         self.assertEqual(scoreboard, self.scoreboard_expected)
->>>>>>> develop
 
 
 if __name__ == '__main__':
