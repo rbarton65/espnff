@@ -104,6 +104,24 @@ Division 1
 ('20.70', Team 8), ('18.20', Team 7), ('18.20', Team 4), ('18.10', Team 5)]
 ```
 
+### Viewing scoreboard
+
+```python3
+>>> from espnff import League
+>>> league_id = 123456
+>>> year = 2016
+>>> league = League(league_id, year)
+>>> league.scoreboard() # grab current week
+["Matchup(Team(Team 2), Team(Team 7))", "Matchup(Team(Team 1), Team(Team 11))",
+"Matchup(Team(Team 6), Team(Team 9))", "Matchup(Team(Team 12), Team(Team 4))",
+"Matchup(Team(Team 10), Team(Team 3))", "Matchup(Team(Team 8), Team(Team 5))"]
+>>> league.scoreboard(week=12) # define week
+["Matchup(Team(Team 2), Team(Team 7))", "Matchup(Team(Team 1), Team(Team 11))",
+"Matchup(Team(Team 6), Team(Team 9))", "Matchup(Team(Team 12), Team(Team 4))",
+"Matchup(Team(Team 10), Team(Team 3))", "Matchup(Team(Team 8), Team(Team 5))"]
+
+```
+
 ## Running the tests
 
 Automated tests for this package are included in the `tests` directory. After installation,
