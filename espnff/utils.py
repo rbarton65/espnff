@@ -1,9 +1,6 @@
-import numpy
-
-
 def square_matrix(X):
     '''Squares a matrix'''
-    result = numpy.zeros(shape=(len(X), len(X[0])))
+    result = [[0.0]*len(X) for x in range(len(X))]
 
     # iterate through rows of X
     for i in range(len(X)):
@@ -15,12 +12,12 @@ def square_matrix(X):
             for k in range(len(X)):
                 result[i][j] += X[i][k] * X[k][j]
 
-    return result.tolist()
+    return result
 
 
 def add_matrix(X, Y):
     '''Adds two matrices'''
-    result = numpy.zeros(shape=(len(X), len(X[0])))
+    result = [[0.0]*len(X) for x in range(len(X))]
 
     for i in range(len(X)):
 
@@ -28,7 +25,7 @@ def add_matrix(X, Y):
         for j in range(len(X[0])):
             result[i][j] = X[i][j] + Y[i][j]
 
-    return result.tolist()
+    return result
 
 
 def two_step_dominance(X):
