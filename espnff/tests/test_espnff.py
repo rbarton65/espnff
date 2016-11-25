@@ -44,5 +44,6 @@ class LeagueTestCase(unittest.TestCase):
         with self.assertRaises(UnknownLeagueException):
             League(1234, 2016)
 
+
 if __name__ == '__main__':
     unittest.main()
