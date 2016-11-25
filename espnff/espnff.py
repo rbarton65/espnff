@@ -30,7 +30,7 @@ class League(object):
         self._fetch_league()
 
     def __repr__(self):
-        return 'League(%s, %s)' % (self.league_id, self.year)
+        return 'League(%s, %s)' % (self.league_id, self.year, )
 
     def _fetch_league(self):
         params = {
@@ -94,6 +94,38 @@ class League(object):
         power_rank = power_points(dominance_matrix, teams_sorted, week)
         return power_rank
 
+    def scoreboard(self, week=None):
+        '''Returns list of matchups for a given week'''
+        params = {
+            'leagueId': self.league_id,
+            'seasonId': self.year
+        }
+        if week is not None:
+            params['matchupPeriodId'] = week
+
+        r = requests.get('%sscoreboard' % (self.ENDPOINT, ), params=params)
+        self.status = r.status_code
+        data = r.json()
+
+        if self.status == 401:
+            raise PrivateLeagueException(data['error'][0]['message'])
+
+        elif self.status == 404:
+            raise InvalidLeagueException(data['error'][0]['message'])
+
+        elif self.status != 200:
+            raise UnknownLeagueException('Unknown %s Error' % self.status)
+
+        matchups = data['scoreboard']['matchups']
+        result = [Matchup(matchup) for matchup in matchups]
+
+        for team in self.teams:
+            for matchup in result:
+                if matchup.home_team == team.team_id:
+                    matchup.home_team = team
+                if matchup.away_team == team.team_id:
+                    matchup.away_team = team
+
 
 class Team(object):
     '''Teams are part of the league'''
@@ -115,7 +147,7 @@ class Team(object):
         self._fetch_schedule(data)
 
     def __repr__(self):
-        return 'Team(%s)' % self.team_names
+        return 'Team(%s)' % (self.team_names, )
 
     def _fetch_schedule(self, data):
         '''Fetch schedule and scores for team'''
@@ -135,3 +167,26 @@ class Team(object):
 
             self.scores.append(score)
             self.schedule.append(opponentId)
+
+
+class Matchup(object):
+    '''Creates Matchup instance'''
+    def __init__(self, data):
+        self.data = data
+        self._fetch_matchup_info()
+
+    def __repr__(self):
+        return 'Matchup(%s, %s)' % (self.home_team, self.away_team, )
+
+    def _fetch_matchup_info(self):
+        '''Fetch info for matchup'''
+        if self.data['teams'][0]['home']:
+            self.home_team = self.data['teams'][0]['teamId']
+            self.home_score = self.data['teams'][0]['score']
+            self.away_team = self.data['teams'][1]['teamId']
+            self.away_score = self.data['teams'][1]['score']
+        else:
+            self.home_team = self.data['teams'][1]['teamId']
+            self.home_score = self.data['teams'][1]['score']
+            self.away_team = self.data['teams'][0]['teamId']
+            self.away_score = self.data['teams'][0]['score']
