@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Added scoreboard function to League instance
+- Added tests for scoreboard function
+
+### Removed
+- Removed deprecation warnings, fully converted to new attributes
 
 
 ## [1.1.0] - 2016-10-18
