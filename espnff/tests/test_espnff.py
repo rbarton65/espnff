@@ -44,7 +44,6 @@ class LeagueTestCase(unittest.TestCase):
         with self.assertRaises(UnknownLeagueException):
             League(1234, 2016)
 
-<<<<<<< HEAD
     @requests_mock.Mocker()
     def test_team_length(self, m):
         '''Did all the teams load into the class?'''
