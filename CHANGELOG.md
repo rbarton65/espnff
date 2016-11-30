@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Patched
+- Fixed `power_rankings()` issue where lists were out of range.
 
 ## [1.2.0] - 2016-11-25
 ### Added
