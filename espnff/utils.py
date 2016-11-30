@@ -23,7 +23,7 @@ def add_matrix(X, Y):
     for i in range(len(X)):
 
         # iterate through columns
-        for j in range(len(X[0])):
+        for j in range(len(X)):
             result[i][j] = X[i][j] + Y[i][j]
 
     return result
