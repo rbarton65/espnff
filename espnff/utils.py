@@ -1,7 +1,6 @@
 def square_matrix(X):
     '''Squares a matrix'''
     result = [[0.0 for x in range(len(X))] for y in range(len(X))]
-    print(X)
 
     # iterate through rows of X
     for i in range(len(X)):
