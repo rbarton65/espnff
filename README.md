@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rbarton65/espnff.svg?branch=master)](https://travis-ci.org/rbarton65/espnff) [![version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/rbarton65/espnff/blob/master/CHANGELOG.md) [![PyPI version](https://badge.fury.io/py/espnff.svg)](https://badge.fury.io/py/espnff)
+[![Build Status](https://travis-ci.org/rbarton65/espnff.svg?branch=master)](https://travis-ci.org/rbarton65/espnff) [![version](https://img.shields.io/badge/version-1.2.1-blue.svg)](https://github.com/rbarton65/espnff/blob/master/CHANGELOG.md) [![PyPI version](https://badge.fury.io/py/espnff.svg)](https://badge.fury.io/py/espnff)
 
 # ESPN Fantasy Football API
 
@@ -52,17 +52,19 @@ League 123456, 2016 Season
 >>> year = 2016
 >>> league = League(league_id, year)
 >>> league.teams
-[Team 1, Team 2, Team 3, Team 4, Team 5, Team 6, Team 7, Team 8]
+[Team(Team 1), Team(Team 2), Team(Team 3), Team(Team 4),
+Team(Team 5), Team(Team 6), Team(Team 7), Team(Team 8)]
 >>> team1 = league.teams[0]
 >>> team1
-Team 1
+Team(Team 1)
 ```
 
 ### Viewing data for specific team
 
 ```python3
 >>> league.teams
-[Team 1, Team 2, Team 3, Team 4, Team 5, Team 6, Team 7, Team 8]
+[Team(Team 1), Team(Team 2), Team(Team 3), Team(Team 4),
+Team(Team 5), Team(Team 6), Team(Team 7), Team(Team 8)]
 >>> team1 = league.teams[0]
 >>> team1.team_id
 1
@@ -85,7 +87,8 @@ Division 1
 >>> team1.points_against
 561.15
 >>> team1.schedule
-[Team 2, Team 3, Team 4, Team 5, Team 6, Team 7, Team 8, Team 2, Team 3, Team 4, Team 5, Team 6, Team 7, Team 8]
+[Team(Team 2), Team(Team 3), Team(Team 4), Team(Team 5), Team(Team 6), Team(Team 7), Team(Team 8),
+Team(Team 2), Team(Team 3), Team(Team 4), Team(Team 5), Team(Team 6), Team(Team 7), Team(Team 8)
 >>> team1.scores
 [135.5, 126.38, 129.53, 126.65, 114.81, 101.82, 1.15, 0, 0, 0, 0, 0, 0, 0]
 >>> team1.mov
@@ -100,8 +103,8 @@ Division 1
 >>> year = 2016
 >>> league = League(league_id, year)
 >>> league.power_rankings(week=5)
-[('31.85', Team 1), ('25.60', Team 3), ('25.60', Team 6), ('22.45', Team 2), 
-('20.70', Team 8), ('18.20', Team 7), ('18.20', Team 4), ('18.10', Team 5)]
+[('31.85', Team(Team 1)), ('25.60', Team(Team 3)), ('25.60', Team(Team 6)), ('22.45', Team(Team 2)),
+('20.70', Team(Team 8)), ('18.20', Team(Team 7)), ('18.20', Team(Team 4)), ('18.10', Team(Team 5))]
 ```
 
 ### Viewing scoreboard

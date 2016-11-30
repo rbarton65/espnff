@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [1.2.1] - 2016-11-29
 ### Patched
 - Fixed `power_rankings()` issue where lists were out of range.
 
@@ -87,7 +89,8 @@ a string character instead of an integer.
 - League and Members classes to obtain information about ESPN league.
 
 
-[Unreleased]: https://github.com/rbarton65/espnff/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/rbarton65/espnff/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/rbarton65/espnff/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/rbarton65/espnff/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/rbarton65/espnff/compare/v1.0.1...v1.1.0
 [1.0.1]: https://github.com/rbarton65/espnff/compare/v1.0.0...v1.0.1
