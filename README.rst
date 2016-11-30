@@ -112,6 +112,36 @@ Viewing power rankings
     [('31.85', Team 1), ('25.60', Team 3), ('25.60', Team 6), ('22.45', Team 2), 
     ('20.70', Team 8), ('18.20', Team 7), ('18.20', Team 4), ('18.10', Team 5)]
 
+Viewing scoreboard
+~~~~~~~~~~~~~~~~~~
+
+.. code:: python3
+
+    >>> from espnff import League
+    >>> league_id = 123456
+    >>> year = 2016
+    >>> league = League(league_id, year)
+    >>> league.scoreboard() # grab current week
+    ["Matchup(Team(Team 2), Team(Team 7))", "Matchup(Team(Team 1), Team(Team 11))",
+    "Matchup(Team(Team 6), Team(Team 9))", "Matchup(Team(Team 12), Team(Team 4))",
+    "Matchup(Team(Team 10), Team(Team 3))", "Matchup(Team(Team 8), Team(Team 5))"]
+    >>> scoreboard = league.scoreboard(week=12) # define week
+    >>> scoreboard
+    ["Matchup(Team(Team 2), Team(Team 7))", "Matchup(Team(Team 1), Team(Team 11))",
+    "Matchup(Team(Team 6), Team(Team 9))", "Matchup(Team(Team 12), Team(Team 4))",
+    "Matchup(Team(Team 10), Team(Team 3))", "Matchup(Team(Team 8), Team(Team 5))"]
+    >>> matchup = scoreboard[1]
+    >>> matchup
+    "Matchup(Team(Team 1), Team(Team 11))"
+    >>> matchup.home_team
+    "Team(Team 1)"
+    >>> matchup.home_score
+    7.05
+    >>> matchup.away_team
+    "Team(Team 11)"
+    >>> matchup.away_score
+    45.85
+
 Running the tests
 -----------------
 
