@@ -182,13 +182,18 @@ class Matchup(object):
 
     def _fetch_matchup_info(self):
         '''Fetch info for matchup'''
-        if self.data['teams'][0]['home']:
+        if self.data['teams'][0]['home'] and not self.data['bye']:
             self.home_team = self.data['teams'][0]['teamId']
             self.home_score = self.data['teams'][0]['score']
             self.away_team = self.data['teams'][1]['teamId']
             self.away_score = self.data['teams'][1]['score']
-        else:
+        elif self.data['teams'][0]['home'] and not self.data['bye']:
             self.home_team = self.data['teams'][1]['teamId']
             self.home_score = self.data['teams'][1]['score']
             self.away_team = self.data['teams'][0]['teamId']
             self.away_score = self.data['teams'][0]['score']
+        else:
+            self.home_team = self.data['teams'][0]['teamId']
+            self.home_score = self.data['teams'][0]['score']
+            self.away_team = None
+            self.away_score = None
