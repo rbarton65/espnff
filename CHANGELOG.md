@@ -3,9 +3,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2.3] - 2016-12-06
+- Fixed issue where bye weeks were breaking `scoreboard()` function.
+
 ## [1.2.2] - 2016-11-30
 ###Patched
-- Fixed `power_rankings()` issue where execution would print matrices
+- Fixed `power_rankings()` issue where execution would print matrices.
 
 ## [1.2.1] - 2016-11-29
 ### Patched
@@ -93,7 +96,8 @@ a string character instead of an integer.
 - League and Members classes to obtain information about ESPN league.
 
 
-[Unreleased]: https://github.com/rbarton65/espnff/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/rbarton65/espnff/compare/v1.2.3...HEAD
+[1.2.3]: https://github.com/rbarton65/espnff/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/rbarton65/espnff/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/rbarton65/espnff/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/rbarton65/espnff/compare/v1.1.0...v1.2.0
