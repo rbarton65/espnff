@@ -178,22 +178,19 @@ class Team(object):
 class Settings(object):
     '''Creates Settings object'''
     def __init__(self, data):
-        self.settings = data['leaguesettings']
-        self.metadata = data['metadata']
-        self.reg_season_count = self.settings['finalRegularSeasonMatchupPeriodId']
-        self.undroppable_list = self.settings['usingUndroppableList']
-        self.veto_votes_required = self.settings['vetoVotesRequired']
-        self.team_count = self.settings['size']
-        self.final_season_count = self.settings['finalMatchupPeriodId']
-        self.playoff_team_count = self.settings['playoffTeamCount']
-        self.id = self.settings['id']
-        self.keeper_count = self.settings['futureKeeperCount']
-        self.keeper_deadline = self.settings['dateFutureKeeperLock']
-        self.trade_deadline = self.settings['tradeDeadline']
-        self.name = self.settings['name']
-        self.status = self.metadata['status']
-        self.year = self.metadata['seasonId']
-        self.server_date = self.metadata['serverDate']
+        self.reg_season_count = data['leaguesettings']['finalRegularSeasonMatchupPeriodId']
+        self.undroppable_list = data['leaguesettings']['usingUndroppableList']
+        self.veto_votes_required = data['leaguesettings']['vetoVotesRequired']
+        self.team_count = data['leaguesettings']['size']
+        self.final_season_count = data['leaguesettings']['finalMatchupPeriodId']
+        self.playoff_team_count = data['leaguesettings']['playoffTeamCount']
+        self.id = data['leaguesettings']['id']
+        self.keeper_count = data['leaguesettings']['futureKeeperCount']
+        self.trade_deadline = data['leaguesettings']['tradeDeadline']
+        self.name = data['leaguesettings']['name']
+        self.status = data['metadata']['status']
+        self.year = data['metadata']['seasonId']
+        self.server_date = data['metadata']['serverDate']
 
     def __repr__(self):
         return 'Settings(%s)' % (self.name)
