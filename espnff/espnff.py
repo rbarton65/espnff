@@ -171,6 +171,15 @@ class Team(object):
             self.schedule.append(opponentId)
 
 
+class Settings(object):
+    '''Creates Settings object'''
+    def __init__(self, data):
+        self.data = data
+
+    def __repr__(self):
+        return 'Settings'
+
+
 class Matchup(object):
     '''Creates Matchup instance'''
     def __init__(self, data):
