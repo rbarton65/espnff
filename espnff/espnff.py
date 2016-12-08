@@ -51,6 +51,7 @@ class League(object):
             raise UnknownLeagueException('Unknown %s Error' % self.status)
 
         self._fetch_teams(data)
+        self._fetch_settings(data)
 
     def _fetch_teams(self, data):
         '''Fetch teams in league'''
@@ -74,6 +75,9 @@ class League(object):
 
         # sort by team ID
         self.teams = sorted(self.teams, key=lambda x: x.team_id, reverse=False)
+
+    def _fetch_settings(self, data):
+        self.settings = Settings(data)
 
     def power_rankings(self, week):
         '''Return power rankings for any week'''
@@ -174,10 +178,25 @@ class Team(object):
 class Settings(object):
     '''Creates Settings object'''
     def __init__(self, data):
-        self.data = data
+        self.settings = data['leaguesettings']
+        self.metadata = data['metadata']
+        self.reg_season_count = self.settings['finalRegularSeasonMatchupPeriodId']
+        self.undroppable_list = self.settings['usingUndroppableList']
+        self.veto_votes_required = self.settings['vetoVotesRequired']
+        self.team_count = self.settings['size']
+        self.final_season_count = self.settings['finalMatchupPeriodId']
+        self.playoff_team_count = self.settings['playoffTeamCount']
+        self.id = self.settings['id']
+        self.keeper_count = self.settings['futureKeeperCount']
+        self.keeper_deadline = self.settings['dateFutureKeeperLock']
+        self.trade_deadline = self.settings['tradeDeadline']
+        self.name = self.settings['name']
+        self.status = self.metadata['status']
+        self.year = self.metadata['seasonId']
+        self.server_date = self.metadata['serverDate']
 
     def __repr__(self):
-        return 'Settings'
+        return 'Settings(%s)' % (self.name)
 
 
 class Matchup(object):
