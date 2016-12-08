@@ -10,4 +10,4 @@ install:
 
 script: 
   - python3 setup.py test
-  - flake8 .
+  - flake8 espnff
