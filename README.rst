@@ -102,6 +102,45 @@ Viewing data for specific team
     >>> team1.mov
     [32.12, 24.92, 45.97, 34.17, 41.74, -5.39, 1.15, 0, 0, 0, 0, 0, 0, 0]
 
+Viewing league settings
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: python3
+
+    >>> from espnff import League
+    >>> league_id = 123456
+    >>> year = 2016
+    >>> league = League(league_id, year)
+    >>> settings = league.settings
+    >>> settings
+    'Settings(League Name)'
+    >>> settings.reg_season_count
+    14
+    >>> self.final_season_count
+    16
+    >>> settings.undroppable_list
+    true
+    >>> settings.veto_votes_required
+    4
+    >>> settings.team_count
+    8
+    >>> settings.playoff_team_count
+    4
+    >>> settings.id
+    123456
+    >>> settings.keeper_count
+    3
+    >>> settings.trade_deadline
+    2016-11-16T17:00:00.000Z
+    >>> settings.name
+    League Name
+    >>> settings.status
+    playoffs
+    >>> settings.year
+    2016
+    >>> settings.server_date
+    2016-12-08T21:06:53.087Z
+
 Viewing power rankings
 ~~~~~~~~~~~~~~~~~~~~~~
 

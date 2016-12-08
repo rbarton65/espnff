@@ -2,12 +2,19 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Added `settings` attribute for league instance.
+
+### TODO before next patch
+- Add roster spots in `Settings` class
+- Add score score settings in `Settings` class
 
 ## [1.2.3] - 2016-12-06
+### Patched
 - Fixed issue where bye weeks were breaking `scoreboard()` function.
 
 ## [1.2.2] - 2016-11-30
-###Patched
+### Patched
 - Fixed `power_rankings()` issue where execution would print matrices.
 
 ## [1.2.1] - 2016-11-29
