@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - Added `settings` attribute for league instance.
+- Added `roster`, `tie_rule`, and `playoff_seed_tie_rule` to `settings`
 
 ### TODO before next patch
 - Add roster spots in `Settings` class

@@ -121,6 +121,12 @@ true
 123456
 >>> settings.keeper_count
 3
+>>> settings.tie_rule
+'Most Bench Points'
+>>> settings.playoff_seed_tie_rule
+'Head to Head Record'
+>>> settings.roster
+{'RB/WR/TE': 1, 'BE': 7, 'QB': 1, 'D/ST': 1, 'RB': 2, 'TE': 1, 'K': 1, 'WR': 2}
 >>> settings.trade_deadline
 2016-11-16T17:00:00.000Z
 >>> settings.name
