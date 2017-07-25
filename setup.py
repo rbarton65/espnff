@@ -7,7 +7,7 @@ setup(
 
     include_package_data=True,
 
-    version='1.3.0',
+    version='1.3.1',
 
     description='ESPN fantasy football API',
 
