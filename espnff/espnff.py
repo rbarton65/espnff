@@ -248,10 +248,10 @@ class Settings(object):
             self.tie_rule = 'Unknown'
 
         playoff_tie_map = {
-                           0: 'Head to Head Record',
-                           1: 'Total Points For',
-                           2: 'Intra Division Record',
-                           3: 'Total Points Against'
+                           -1: 'Head to Head Record',
+                           0: 'Total Points For',
+                           1: 'Intra Division Record',
+                           2: 'Total Points Against'
                           }
 
         playoff_id = data['leaguesettings']['playoffSeedingTieRuleRawStatId']
