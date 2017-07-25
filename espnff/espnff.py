@@ -241,7 +241,11 @@ class Settings(object):
                   }
 
         tie_id = data['leaguesettings']['tieRule']
-        self.tie_rule = tie_map[tie_id]
+
+        try:
+            self.tie_rule = tie_map[tie_id]
+        except:
+            self.tie_rule = 'Unknown'
 
         playoff_tie_map = {
                            0: 'Head to Head Record',
@@ -249,8 +253,13 @@ class Settings(object):
                            2: 'Intra Division Record',
                            3: 'Total Points Against'
                           }
+
         playoff_id = data['leaguesettings']['playoffSeedingTieRuleRawStatId']
-        self.playoff_seed_tie_rule = playoff_tie_map[playoff_id]
+
+        try:
+            self.playoff_seed_tie_rule = playoff_tie_map[playoff_id]
+        except:
+            self.playoff_seed_tie_rule = 'Unknown'
 
 
 class Matchup(object):
