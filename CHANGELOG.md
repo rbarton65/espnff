@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [1.3.1] - 2017-07-24
 ### Added
 - Added CI testing for Python 3.6
 
@@ -107,7 +109,8 @@ a string character instead of an integer.
 - League and Members classes to obtain information about ESPN league.
 
 
-[Unreleased]: https://github.com/rbarton65/espnff/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/rbarton65/espnff/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/rbarton65/espnff/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/rbarton65/espnff/compare/v1.2.3...v1.3.0
 [1.2.3]: https://github.com/rbarton65/espnff/compare/v1.2.2...v1.2.3
 [1.2.2]: https://github.com/rbarton65/espnff/compare/v1.2.1...v1.2.2
