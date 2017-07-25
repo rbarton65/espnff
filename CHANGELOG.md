@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Added CI testing for Python 3.6
+
+### Patched
+- Fixed issue where map for `playoff_seed_tie_rule` was wrong.
 
 ## [1.3.0] - 2016-12-12
 ### Added
