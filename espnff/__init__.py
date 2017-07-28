@@ -8,7 +8,7 @@ __all__ = ['League',
            'UnknownLeagueException'
            ]
 
-from .espnff import League
+from .league import League
 from .team import Team
 from .settings import Settings
 from .matchup import Matchup
