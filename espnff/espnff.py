@@ -5,22 +5,9 @@ from .utils import (two_step_dominance,
 from .team import Team
 from .settings import Settings
 from .matchup import Matchup
-
-
-class ESPNFFException(Exception):
-    pass
-
-
-class PrivateLeagueException(ESPNFFException):
-    pass
-
-
-class InvalidLeagueException(ESPNFFException):
-    pass
-
-
-class UnknownLeagueException(ESPNFFException):
-    pass
+from .exception import (PrivateLeagueException,
+                        InvalidLeagueException,
+                        UnknownLeagueException, )
 
 
 class League(object):
