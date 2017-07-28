@@ -625,7 +625,6 @@
       "usingUndroppableList":true,
       "draftPickTradingEnabled":false,
       "waiverProcessDays":123,
-      "tradeDeadline":"2016-11-19T17:00:00.000Z",
       "waiverHours":24,
       "playoffMatchupLength":1,
       "vetoVotesRequired":4,
