@@ -1,3 +1,4 @@
-from .espnff import League, Team
+__all__ = ['League', 'Settings', 'Matchup', 'Team']
 
-__all__ = ['League', 'Team']
+from .espnff import League, Settings, Matchup
+from .team import Team
