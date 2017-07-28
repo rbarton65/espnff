@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ### Patched
 - Quick fix for `trade_deadline` attribute in `Settings` class. Will search for better alternative.
 
+### Other
+- Reorganized structure of `espnff` package for future development
 
 ## [1.3.1] - 2017-07-24
 ### Added

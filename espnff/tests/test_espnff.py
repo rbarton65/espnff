@@ -3,10 +3,10 @@ import unittest
 import json
 
 
-from espnff.espnff import (League,
-                           PrivateLeagueException,
-                           InvalidLeagueException,
-                           UnknownLeagueException)
+from espnff.league import (League)
+from espnff.exception import (PrivateLeagueException,
+                              InvalidLeagueException,
+                              UnknownLeagueException, )
 
 
 class LeagueTestCase(unittest.TestCase):
