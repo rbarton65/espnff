@@ -41,4 +41,5 @@ class Team(object):
 
     def get_roster(self, week):
         '''Get roster for a given week'''
+        roster = None
         return roster
