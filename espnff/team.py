@@ -38,3 +38,7 @@ class Team(object):
 
             self.scores.append(score)
             self.schedule.append(opponentId)
+
+    def get_roster(self, week):
+        '''Get roster for a given week'''
+        return roster
