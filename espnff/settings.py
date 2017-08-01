@@ -1,27 +1,31 @@
 class Settings(object):
     '''Creates Settings object'''
     def __init__(self, data):
-        self.reg_season_count = data['leaguesettings']['finalRegularSeasonMatchupPeriodId']
-        self.undroppable_list = data['leaguesettings']['usingUndroppableList']
-        self.veto_votes_required = data['leaguesettings']['vetoVotesRequired']
-        self.team_count = data['leaguesettings']['size']
-        self.final_season_count = data['leaguesettings']['finalMatchupPeriodId']
-        self.playoff_team_count = data['leaguesettings']['playoffTeamCount']
-        self.id = data['leaguesettings']['id']
-        self.keeper_count = data['leaguesettings']['futureKeeperCount']
-        try:
-            self.trade_deadline = data['leaguesettings']['tradeDeadline']
-        except:
-            self.trade_deadline = 'Unknown'
-        self.name = data['leaguesettings']['name']
-        self.status = data['metadata']['status']
-        self.year = data['metadata']['seasonId']
-        self.server_date = data['metadata']['serverDate']
+        self.reg_season_count = self._try_except(data['leaguesettings'], 'finalRegularSeasonMatchupPeriodId')
+        self.undroppable_list = self._try_except(data['leaguesettings'], 'usingUndroppableList')
+        self.veto_votes_required = self._try_except(data['leaguesettings'], 'vetoVotesRequired')
+        self.team_count = self._try_except(data['leaguesettings'], 'size')
+        self.final_season_count = self._try_except(data['leaguesettings'], 'finalMatchupPeriodId')
+        self.playoff_team_count = self._try_except(data['leaguesettings'], 'playoffTeamCount')
+        self.id = self._try_except(data['leaguesettings'], 'id')
+        self.keeper_count = self._try_except(data['leaguesettings'], 'futureKeeperCount')
+        self.trade_deadline = self._try_except(data['leaguesettings'], 'tradeDeadline')
+        self.name = self._try_except(data['leaguesettings'], 'name')
+        self.status = self._try_except(data['metadata'], 'status')
+        self.year = self._try_except(data['metadata'], 'seasonId')
+        self.server_date = self._try_except(data['metadata'], 'serverDate')
         self._fetch_roster_settings(data)
         self._fetch_tie_rules(data)
 
     def __repr__(self):
         return 'Settings(%s)' % (self.name)
+
+    def _try_except(self, data, key):
+        '''Populate attributes'''
+        try:
+            return data[key]
+        except:
+            return "Unknown"
 
     def _fetch_roster_settings(self, data):
         '''Grabs roster settings'''
@@ -67,11 +71,7 @@ class Settings(object):
                   }
 
         tie_id = data['leaguesettings']['tieRule']
-
-        try:
-            self.tie_rule = tie_map[tie_id]
-        except:
-            self.tie_rule = 'Unknown'
+        self.tie_rule = self._try_except(tie_map, tie_id)
 
         playoff_tie_map = {
                            -1: 'Head to Head Record',
@@ -81,8 +81,4 @@ class Settings(object):
                           }
 
         playoff_id = data['leaguesettings']['playoffSeedingTieRuleRawStatId']
-
-        try:
-            self.playoff_seed_tie_rule = playoff_tie_map[playoff_id]
-        except:
-            self.playoff_seed_tie_rule = 'Unknown'
+        self.playoff_seed_tie_rule = self._try_except(playoff_tie_map, playoff_id)
