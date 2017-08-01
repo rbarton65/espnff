@@ -1,7 +1,7 @@
 ESPN Fantasy Football API
 =========================
 
-| Using ESPN’s Fantasy Football private API, this package interfaces
+| Using ESPN's Fantasy Football private API, this package interfaces
   with
 | ESPN Fantasy Football to gather data from any public league. A good
   way to mine data
