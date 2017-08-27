@@ -12,11 +12,13 @@ from .exception import (PrivateLeagueException,
 
 class League(object):
     '''Creates a League instance for Public ESPN league'''
-    def __init__(self, league_id, year):
+    def __init__(self, league_id, year, espn_s2=None, swid=None):
         self.league_id = league_id
         self.year = year
         self.ENDPOINT = "http://games.espn.com/ffl/api/v2/"
         self.teams = []
+        self.espn_s2 = espn_s2
+        self.swid = swid
         self._fetch_league()
 
     def __repr__(self):
@@ -27,7 +29,15 @@ class League(object):
             'leagueId': self.league_id,
             'seasonId': self.year
         }
-        r = requests.get('%sleagueSettings' % (self.ENDPOINT, ), params=params)
+
+        cookies = None
+        if self.espn_s2 and self.swid:
+            cookies = {
+                'espn_s2': self.espn_s2,
+                'SWID': self.swid
+            }
+
+        r = requests.get('%sleagueSettings' % (self.ENDPOINT, ), params=params, cookies=cookies)
         self.status = r.status_code
         data = r.json()
 
